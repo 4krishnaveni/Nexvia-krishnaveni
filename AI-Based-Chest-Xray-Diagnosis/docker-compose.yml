@@ -1,0 +1,61 @@
+# One command: docker compose up --build
+# Needs .env (copy .env.example) and trained weights in ./models (or ALLOW_UNTRAINED=1 for a pipeline demo)
+services:
+  orthanc:
+    image: orthancteam/orthanc:latest
+    ports: ["8042:8042", "4242:4242"]
+    environment:
+      ORTHANC__NAME: "CXR Orthanc"
+      ORTHANC__DICOM_AET: "ORTHANC"
+      ORTHANC__AUTHENTICATION_ENABLED: "true"
+      ORTHANC__REGISTERED_USERS: '{"${ORTHANC_USER}": "${ORTHANC_PASSWORD}"}'
+      ORTHANC__REMOTE_ACCESS_ALLOWED: "true"
+      ORTHANC__STABLE_AGE: "5"            # seconds of quiet before a study counts as "stable"
+      ORTHANC__DICOM_ALWAYS_ALLOW_STORE: "true"   # demo only: accept C-STORE from any sender
+    volumes: ["orthanc-db:/var/lib/orthanc/db"]
+    restart: unless-stopped
+
+  api:
+    build: { context: ., dockerfile: backend/Dockerfile }
+    ports: ["8000:8000"]
+    environment:
+      JWT_SECRET: ${JWT_SECRET}
+      INTERNAL_API_KEY: ${INTERNAL_API_KEY}
+      RADIOLOGIST_USER: ${RADIOLOGIST_USER}
+      RADIOLOGIST_PASSWORD: ${RADIOLOGIST_PASSWORD}
+    volumes: ["api-data:/data", "results:/results"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request as u; u.urlopen('http://localhost:8000/health')"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+
+  worker:
+    build: { context: ., dockerfile: Dockerfile.worker }
+    depends_on: { api: { condition: service_healthy }, orthanc: { condition: service_started } }
+    environment:
+      ORTHANC_URL: http://orthanc:8042
+      ORTHANC_USER: ${ORTHANC_USER}
+      ORTHANC_PASSWORD: ${ORTHANC_PASSWORD}
+      API_URL: http://api:8000
+      INTERNAL_API_KEY: ${INTERNAL_API_KEY}
+      RESULTS_DIR: /results
+      STATE_FILE: /state/worker_state.json
+      CLS_WEIGHTS: /models/classifier.pt
+      SEG_WEIGHTS: /models/unet.pt
+      ALLOW_UNTRAINED: ${ALLOW_UNTRAINED:-0}
+    volumes: ["./models:/models:ro", "results:/results", "worker-state:/state"]
+    restart: unless-stopped
+
+  frontend:
+    build: { context: ./frontend }
+    ports: ["3000:80"]
+    depends_on: [api]
+    restart: unless-stopped
+
+volumes:
+  orthanc-db:
+  api-data:
+  results:
+  worker-state:

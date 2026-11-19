@@ -1,0 +1,35 @@
+{
+  "n_test": 23,
+  "threshold_from_val": 0.5091528296470642,
+  "auroc": 1.0,
+  "auprc": 0.9999999999999998,
+  "sensitivity": 1.0,
+  "specificity": 1.0,
+  "f1": 1.0,
+  "ece": 0.2014398095400437,
+  "subgroups": {
+    "sex=F": {
+      "n": 8,
+      "auroc": 1.0
+    },
+    "sex=M": {
+      "n": 15,
+      "auroc": 1.0
+    },
+    "age=<40": {
+      "n": 10,
+      "auroc": 1.0
+    },
+    "age=40-59": {
+      "n": 7,
+      "auroc": 1.0
+    },
+    "age=60+": {
+      "n": 6,
+      "auroc": 1.0
+    }
+  },
+  "pointing_game_accuracy": 0.0,
+  "dice_positives_box_masks": 0.6257849165371486,
+  "n_test_positives": 7
+}

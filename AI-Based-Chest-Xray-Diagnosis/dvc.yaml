@@ -1,0 +1,47 @@
+stages:
+  preprocess:
+    cmd: python -m src.data.preprocess --raw data/raw --out data/processed --size ${img_size} --seed ${seed}
+    deps:
+      - data/raw
+      - src/data
+    params:
+      - img_size
+      - seed
+    outs:
+      - data/processed
+  train_cls:
+    cmd: python -m src.train.train_cls --data data/processed --backbone ${cls.backbone} --epochs ${cls.epochs} --batch-size ${cls.batch_size} --lr ${cls.lr} --freeze-epochs ${cls.freeze_epochs} --out models/classifier.pt
+    deps:
+      - data/processed
+      - src/train/train_cls.py
+      - src/models/classifier.py
+    params:
+      - cls
+    outs:
+      - models/classifier.pt
+    metrics:
+      - reports/cls_train.json:
+          cache: false
+  train_seg:
+    cmd: python -m src.train.train_seg --data data/processed --epochs ${seg.epochs} --batch-size ${seg.batch_size} --lr ${seg.lr} --out models/unet.pt
+    deps:
+      - data/processed
+      - src/train/train_seg.py
+      - src/models/segmenter.py
+    params:
+      - seg
+    outs:
+      - models/unet.pt
+    metrics:
+      - reports/seg_train.json:
+          cache: false
+  evaluate:
+    cmd: python -m src.eval.evaluate --data data/processed --cls models/classifier.pt --seg models/unet.pt --out reports/metrics.json
+    deps:
+      - models/classifier.pt
+      - models/unet.pt
+      - src/eval
+      - src/explain
+    metrics:
+      - reports/metrics.json:
+          cache: false

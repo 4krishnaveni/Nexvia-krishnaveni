@@ -1,0 +1,22 @@
+# Full dev/training environment. Install torch first (see README step 2).
+torch>=2.3
+torchvision>=0.17
+monai>=1.3
+pydicom>=2.4
+pandas>=2.0
+numpy>=1.26
+scikit-learn>=1.3
+opencv-python-headless>=4.9
+grad-cam>=1.5
+dvc>=3.0
+fastapi>=0.110
+uvicorn>=0.29
+pyjwt>=2.8
+python-multipart>=0.0.9
+httpx>=0.27
+requests>=2.31
+pynetdicom>=2.0
+pytest>=8.0
+ruff>=0.4
+matplotlib>=3.8
+tqdm>=4.66
