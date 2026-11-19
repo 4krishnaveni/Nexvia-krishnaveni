@@ -1,0 +1,12 @@
+frame,classical_both_lanes_found,segformer_road_percentage,comparison_image
+0,True,24.1,results\lane_comparison\comparison_frame_0.jpg
+25,True,21.91,results\lane_comparison\comparison_frame_25.jpg
+50,False,23.62,results\lane_comparison\comparison_frame_50.jpg
+75,True,21.98,results\lane_comparison\comparison_frame_75.jpg
+100,False,34.76,results\lane_comparison\comparison_frame_100.jpg
+125,False,16.98,results\lane_comparison\comparison_frame_125.jpg
+150,False,17.64,results\lane_comparison\comparison_frame_150.jpg
+200,False,25.16,results\lane_comparison\comparison_frame_200.jpg
+250,True,16.4,results\lane_comparison\comparison_frame_250.jpg
+300,True,16.08,results\lane_comparison\comparison_frame_300.jpg
+339,True,10.64,results\lane_comparison\comparison_frame_339.jpg

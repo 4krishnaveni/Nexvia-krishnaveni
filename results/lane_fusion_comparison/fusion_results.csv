@@ -1,0 +1,12 @@
+frame,classical_found,fusion_found,road_percentage,image
+0,True,True,24.1,results\lane_fusion_comparison\fusion_frame_0.jpg
+25,True,True,21.91,results\lane_fusion_comparison\fusion_frame_25.jpg
+50,False,True,23.62,results\lane_fusion_comparison\fusion_frame_50.jpg
+75,True,True,21.98,results\lane_fusion_comparison\fusion_frame_75.jpg
+100,False,True,34.76,results\lane_fusion_comparison\fusion_frame_100.jpg
+125,False,False,16.98,results\lane_fusion_comparison\fusion_frame_125.jpg
+150,False,True,17.64,results\lane_fusion_comparison\fusion_frame_150.jpg
+200,False,False,25.16,results\lane_fusion_comparison\fusion_frame_200.jpg
+250,True,True,16.4,results\lane_fusion_comparison\fusion_frame_250.jpg
+300,True,True,16.08,results\lane_fusion_comparison\fusion_frame_300.jpg
+339,True,True,10.64,results\lane_fusion_comparison\fusion_frame_339.jpg

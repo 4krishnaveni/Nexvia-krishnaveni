@@ -1,0 +1,12 @@
+﻿names:
+  0: Car
+  1: Van
+  2: Truck
+  3: Pedestrian
+  4: Cyclist
+  5: Tram
+  6: Misc
+  7: Person (sitting)
+train: train.txt
+val: val.txt
+test: test.txt

@@ -1,0 +1,2 @@
+video,frame_index,image,classical_found,fusion_found,road_percentage
+Video17,0,data\Dataset\Video17\images\0000000000.png,True,True,24.1

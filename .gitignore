@@ -1,0 +1,12 @@
+﻿data/
+runs/
+__pycache__/
+wandb/
+*.onnx
+*.engine
+*.mp4
+!results/carla_yolo/
+!results/carla_yolo/carla_yolo_offline_demo.mp4
+*.pt
+!models/
+!models/*.pt

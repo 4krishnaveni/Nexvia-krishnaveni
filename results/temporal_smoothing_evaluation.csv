@@ -1,0 +1,7 @@
+metric,value
+Total detections,666.0
+Unique tracks,40.0
+Raw transitions,171.0
+Smoothed transitions,76.0
+Transitions reduced,95.0
+Reduction percentage,55.56
